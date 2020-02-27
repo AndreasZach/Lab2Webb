@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <meta name="viewport" content="width=device-width" initial-scale="1">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
     <title>BookDB</title>
     <script src="script.js"></script>
 </head>
@@ -18,16 +18,16 @@
            </ul>
        </div>
        <div class="left">
-           <form id="formInput">
+           <form id="formInput" autocomplete="off">
                <div>
-                   <input id="addTitle" name="addTitle" type="text" placeholder="Title:" required />
+                   <input id="addTitle" name="addTitle" type="text" placeholder="Title:" />
                </div>
                <div>
-                   <input id="addAuthor" name="addAuthor" type="text" placeholder="Author:" required />
+                   <input id="addAuthor" name="addAuthor" type="text" placeholder="Author:" />
                </div>
            </form>
            <button class="btn" id="updateBtn" disabled>Update book-list</button>
-           <button class="btn"  id="addBtn" disabled>Add Book</button>
+           <button class="btn" id="addBtn" disabled>Add Book</button>
            <button class="btn" id="delBtn" disabled>Delete selected book</button>
            <button class="btn" id="editBtn" disabled>Edit selected book</button>
            <button class="btn" id="confirmEditBtn">Confirm edit</button>
