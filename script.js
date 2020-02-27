@@ -24,6 +24,8 @@ window.addEventListener("load", () => {
     editBtn.onclick = beginEdit;
     confirmEditBtn.onclick = confirmEdit;
 
+    // Adds the query parameter to the baseURL for the website. Then uses the Action parameter to execute the appropriate code for that query.
+    // The function will retry up to ten times before informing the user of query failure, as well as the error message attached to it.
     function queryDatabase(query, action) {
         let retryCount = 0;
         let url = "https://www.forverkliga.se/JavaScript/api/crud.php?" + query;
@@ -66,7 +68,7 @@ window.addEventListener("load", () => {
             return window.alert("Please enter a Title for the book.");
         }
         if (!authorField.value || !authorField.value.trim()) {
-            return window.alert("Please enter an Authoe for the book.");
+            return window.alert("Please enter an Author for the book.");
         }
         let queryString = "op=insert" + key + "&title=" + titleField.value + "&author=" + authorField.value;
         queryDatabase(queryString, (data) => {
@@ -81,6 +83,10 @@ window.addEventListener("load", () => {
         }
         selectedBook = null;
         let queryString = "op=select" + key;
+
+        // For each item received, it creates a unordered list element, one list element for each property of the object received from the server and their data in textnodes.
+        // It then appends each textNode to it's appropriate parent, before appending each parent to the main ul node.
+        // Finally, it appends the ul to the bookView list.
         queryDatabase(queryString, (data) => {
             data.data.forEach((item) => {
                 let innerUl = document.createElement("ul");
@@ -129,6 +135,8 @@ window.addEventListener("load", () => {
         }
     }
 
+
+    // Enters the "edit state" by disabling all input elements which are not needed, or could hinder the editing.
     function beginEdit() {
         if (selectedBook == null || selectedBook == undefined) {
             return window.alert("Must select a book before you can edit it.")
@@ -138,6 +146,7 @@ window.addEventListener("load", () => {
         }
     }
 
+    // finishes the editing then exits the "edit state" and replaces it with the default state.
     function confirmEdit() {
         let editTitle = document.getElementById("editTitle");
         let editAuthor = document.getElementById("editAuthor");
