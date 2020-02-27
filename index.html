@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="style.css" />
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width" initial-scale="1">
     <title>BookDB</title>
 </head>
 
@@ -25,19 +25,20 @@
                    <input id="addAuthor" name="addAuthor" type="text" placeholder="Author:" required />
                </div>
            </form>
-           <button class="btn" id="updateBtn">Update book-list</button>
-           <button class="btn" id="addBtn">Add Book</button>
-           <button class="btn" id="delBtn">Delete selected book</button>
-           <button class="btn" id="editBtn">Edit selected book</button>
+           <button class="btn" id="updateBtn" disabled>Update book-list</button>
+           <button class="btn"  id="addBtn" disabled>Add Book</button>
+           <button class="btn" id="delBtn" disabled>Delete selected book</button>
+           <button class="btn" id="editBtn" disabled>Edit selected book</button>
+           <button class="btn" id="confirmEditBtn">Confirm edit</button>
            <button class="btn" id="keyBtn">Get a new API key</button>
            <div class="btn"><p id="keyTxt">Current Key:</p></div>
        </div>
        <div class="right">
            <ul id="selBook">
-               <li id="selId">ID:</li>
-               <li id="selTitle">Title:</li>
-               <li id="selAuthor">Author:</li>
-               <li id="selEdit">Last edited:</li>
+               <li id="selId"></li>
+               <li id="selTitle"></li>
+               <li id="selAuthor"></li>
+               <li id="selUpdated"></li>
            </ul>
        </div>
     <script src="script.js"></script>
