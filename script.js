@@ -1,6 +1,3 @@
-
-// Clean the code
-// Combine all functions which manipulate data into one function?
 window.addEventListener("load", () => {
     let key = "";
     let titleField = document.getElementById("addTitle");
@@ -58,6 +55,7 @@ window.addEventListener("load", () => {
 
     function requestKey() {
         disableElements([keyBtn]);
+        clearBookView();
         let queryString = "requestKey";
         queryDatabase(queryString, (data) => {
             key = "&key=" + data.key;
@@ -68,12 +66,15 @@ window.addEventListener("load", () => {
     function addBook() {
         disableElements([addBtn]);
         if (!titleField.value || !titleField.value.trim()) {
+            defaultState();
             return window.alert("Please enter a Title for the book.");
         }
         if (!authorField.value || !authorField.value.trim()) {
+            defaultState();
             return window.alert("Please enter an Author for the book.");
         }
         if (detectEmoji(titleField.value + " " + authorField.value)) {
+            defaultState();
             return window.alert("Emoji Unicode patterns are not valid inputs");
         }
 
@@ -87,9 +88,8 @@ window.addEventListener("load", () => {
     function getBooks() {
         disableElements([updateBtn]);
         if (bookView.children.length > 0) {
-            bookView.innerHTML = "";
+            clearBookView();
         }
-        selectedBook = null;
         let queryString = "op=select" + key;
 
         // For each item received, it creates a unordered list element, one list element for each property of the object received from the server and their data in textnodes.
@@ -168,6 +168,11 @@ window.addEventListener("load", () => {
                 selectedBook.children[2].innerHTML = editAuthor.value;
             });
         }
+    }
+
+    function clearBookView() {
+        bookView.innerHTML = "";
+        selectedBook = null;
     }
 
     function detectEmoji(text){

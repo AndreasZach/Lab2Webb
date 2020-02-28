@@ -6,10 +6,35 @@ html {
     height: 100%;
 }
 
+.bgColorLightGray {
+    background-color: lightslategray;
+}
+
+.bgColorGray {
+    background-color: slategray;
+}
+
+.bgColorDarkGray {
+    background-color: darkslategrey;
+}
+
+.bgColorWhiteSmoke {
+    background-color: whitesmoke;
+
+}
+
+.colorDarkGray {
+    color: darkslategrey;
+}
+
+
+.colorWhiteSmoke {
+    color: whitesmoke;
+}
+
 .index {
     min-height: 100%;
     margin: 0 auto;
-    background-color: darkslategrey;
     display: grid;
     grid-template: "top top" 400px "left right" 1fr / 1fr 2fr;
     color: whitesmoke;
@@ -42,7 +67,6 @@ html {
 
 .top {
     border: 2px solid whitesmoke;
-    background-color: lightslategray;
     grid-area: top;
     padding: 50px;
 }
@@ -56,14 +80,12 @@ html {
         "keyBtn keyTxt" 1fr / 1fr 1fr;
     grid-gap: 5px;
     border: 2px solid whitesmoke;
-    background-color: slategrey;
     grid-area: left;
     padding: 15px;
 }
 
 .right {
     border: 2px solid whitesmoke;
-    background-color: slategrey;
     padding: 30px;
     grid-area: right;
 }
@@ -88,6 +110,11 @@ button:hover {
     height: 85%;
     width: 100%;
     overflow: scroll;
+}
+
+#bookList ul:hover {
+    background-color: whitesmoke;
+    color: darkslategray;
 }
 
 #addBtn {
