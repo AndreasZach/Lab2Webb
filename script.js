@@ -48,6 +48,7 @@ window.addEventListener("load", () => {
                     else {
                         statusParagraph.innerHTML = "Query failed " + statusMessage + "<br />" + data.message;
                         statusParagraph.style.color = "red";
+                        defaultState()
                     }
                 })
                 .catch((err) => window.alert(err));
@@ -56,6 +57,7 @@ window.addEventListener("load", () => {
     }
 
     function requestKey() {
+        disableElements([keyBtn]);
         let queryString = "requestKey";
         queryDatabase(queryString, (data) => {
             key = "&key=" + data.key;
@@ -64,12 +66,17 @@ window.addEventListener("load", () => {
     }
 
     function addBook() {
+        disableElements([addBtn]);
         if (!titleField.value || !titleField.value.trim()) {
             return window.alert("Please enter a Title for the book.");
         }
         if (!authorField.value || !authorField.value.trim()) {
             return window.alert("Please enter an Author for the book.");
         }
+        if (detectEmoji(titleField.value + " " + authorField.value)) {
+            return window.alert("Emoji Unicode patterns are not valid inputs");
+        }
+
         let queryString = "op=insert" + key + "&title=" + titleField.value + "&author=" + authorField.value;
         queryDatabase(queryString, (data) => {
             titleField.value = "";
@@ -78,6 +85,7 @@ window.addEventListener("load", () => {
     }
 
     function getBooks() {
+        disableElements([updateBtn]);
         if (bookView.children.length > 0) {
             bookView.innerHTML = "";
         }
@@ -151,15 +159,24 @@ window.addEventListener("load", () => {
         let editTitle = document.getElementById("editTitle");
         let editAuthor = document.getElementById("editAuthor");
         if (editTitle.value.trim().length <= 1 || editAuthor.value.trim().length <= 1) {
-            window.alert("Author and Title must contain two or more characters.");
+            return window.alert("Author and Title must contain two or more characters.");
         }
         else {
             let queryString = "op=update" + key + "&id=" + selectedBook.id + "&title=" + editTitle.value + "&author=" + editAuthor.value;
             queryDatabase(queryString, (data) => {
                 selectedBook.children[1].innerHTML = editTitle.value;
                 selectedBook.children[2].innerHTML = editAuthor.value;
-            })
+            });
         }
+    }
+
+    function detectEmoji(text){
+        let ranges = [
+            "\ud83c[\udf00-\udfff]",
+            "\ud83d[\udc00-\ude4f]",
+            "\ud83d[\ude80-\udeff]"
+        ];
+        return text.match(new RegExp(ranges.join('|')));
     }
 
     function disableElements(elements) {
@@ -168,11 +185,6 @@ window.addEventListener("load", () => {
 
     function enableElements(elements) {
         elements.forEach(element => element.disabled = false)
-    }
-
-    function noKeyState() {
-        disableElements([editBtn, addBtn, delBtn, updateBtn]);
-        enableElements([keyBtn]);
     }
 
     function editState() {
